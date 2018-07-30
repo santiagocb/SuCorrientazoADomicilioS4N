@@ -1,0 +1,6 @@
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:33:27: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Unit[0m
+[0m[[0m[31merror[0m] [0m[0m required: Char => ?[0m
+[0m[[0m[31merror[0m] [0m[0m    str.toList.map(println())[0m
+[0m[[0m[31merror[0m] [0m[0m                          ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
