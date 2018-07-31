@@ -7,3 +7,16 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- Mostrando rastro[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una entrega[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una ruta (vuelve a casa a los 3)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- Leyendo archivo *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  java.io.FileNotFoundException: /home/Documents/SuCorrientazoADomicilioin.txt (No such file or directory)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at java.io.FileInputStream.open0(Native Method)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at java.io.FileInputStream.open(FileInputStream.java:195)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at java.io.FileInputStream.<init>(FileInputStream.java:138)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at scala.io.Source$.fromFile(Source.scala:91)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at scala.io.Source$.fromFile(Source.scala:76)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at scala.io.Source$.fromFile(Source.scala:54)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at co.com.Servicios.InterpretacionServicioArchivo.leerArchivo(InterpretacionServicioArchivo.scala:11)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at co.com.Servicios.InterpretacionServicioArchivo.leerArchivo$(InterpretacionServicioArchivo.scala:10)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at co.com.Servicios.InterpretacionServicioArchivo$.leerArchivo(InterpretacionServicioArchivo.scala:15)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  at co.com.TestSuite.$anonfun$new$10(TestSuite.scala:69)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  ...[0m[0m
