@@ -1,8 +1,6 @@
 package co.com.Dron
 
-import co.com.Entrega.Entrega
-import co.com.Posicion.Posicion
-import co.com.sustantivos._
+import co.com.Sustantivos.{Entrega, Posicion, _}
 
 import scala.util.Try
 
