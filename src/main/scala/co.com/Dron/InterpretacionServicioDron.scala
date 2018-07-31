@@ -11,7 +11,6 @@ sealed trait ServicioDronAlgebra {
   def mostrarRastro(dron: Dron, entrega: Entrega): List[Try[Dron]]
   def realizarEntrega(dron: Dron, entrega: Entrega): Try[Dron]
   def realizarRuta(dron: Dron, ruta: Ruta): List[Try[Dron]]
-  def volverACasa(dron: Dron): Dron
 }
 
 sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
@@ -58,18 +57,33 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
   }
 
   def realizarEntrega(dron: Dron, entrega: Entrega): Try[Dron] = {
-    entrega.entrega.foldLeft(List(Try{dron}))((huella, item) => {
-      huella :+ item.flatMap(ins => huella.last.flatMap(lastDron => realizarInstruccion(lastDron, ins)))
-    }).last.map(dron => Dron(dron.id, dron.posicionActual, dron.encargos - 1))
+    if(dron.encargos == 0){
+      volverACasa(dron)
+    } else {
+      entrega.entrega.foldLeft(List(Try{dron}))((huella, item) => {
+        huella :+ item.flatMap(ins => huella.last.flatMap(lastDron => {
+          if(lastDron.encargos == 0) Posicion.newPosicionTry(Coordenada(0, 0), N())
+            .flatMap(posInicio => realizarInstruccion(Dron(lastDron.id, posInicio, 3), ins))
+          else realizarInstruccion(lastDron, ins)
+        }))
+      }).last.map(dron => Dron(dron.id, dron.posicionActual, dron.encargos - 1))
+    }
+
   }
 
   def realizarRuta(dron: Dron, ruta: Ruta): List[Try[Dron]] = {
     ruta.ruta.foldLeft(List(Try{dron}))((reporte, entrega) => {
-      reporte :+ reporte.last.flatMap(lastEntrega => realizarEntrega(lastEntrega, entrega))
+      reporte :+ reporte.last.flatMap(lastEntrega => {
+        if(lastEntrega.encargos == 0) Posicion.newPosicionTry(Coordenada(0, 0), N())
+          .flatMap(posInicio => realizarEntrega(Dron(lastEntrega.id, posInicio, 3), entrega))
+        else  realizarEntrega(lastEntrega, entrega)
+      })
     })
   }
 
-  def volverACasa(dron: Dron): Dron = ???
+  private def volverACasa(dron: Dron): Try[Dron] = {
+    Posicion.newPosicionTry(Coordenada(0, 0), N()).map(posInicio => Dron(dron.id, posInicio, 3))
+  }
 }
 
 object InterpretacionServicioDron extends InterpretacionServicioDron

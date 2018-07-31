@@ -53,10 +53,10 @@ class TestSuite extends FunSuite{
     assert(entregadoEn == Success(Dron.Dron(1, Posicion.Posicion(Coordenada(-2, 4), N()), 2)))
   }
 
-  test("Mandando al dron a hacer una ruta") {
-    val archivo = List("AAAAIAAD", "DDAIAD", "AAIADADA")
+  test("Mandando al dron a hacer una ruta (vuelve a casa a los 3)") {
+    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA")
     val ruta = Ruta.newRuta(archivo)
-    println(ruta.ruta)
+    //println(ruta.ruta)
     val dron = Dron.Dron(1, Posicion.Posicion(Coordenada(0, 0), N()), 3)
     println(InterpretacionServicioDron.realizarRuta(dron, ruta))
 
