@@ -1,4 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/servicios/ServicioInstruccion.scala:15:8: object creation impossible, since method moverAdelante in trait ServicioInstruccionAlgebra of type (posicionActual: co.com.entidades.Posicion)co.com.entidades.Posicion is not defined[0m
-[0m[[0m[31merror[0m] [0m[0mobject InterpretacionServicioInstruccion extends InterpretacionServicioInstruccion[0m
-[0m[[0m[31merror[0m] [0m[0m       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Dron/InterpretacionServicioDron.scala:68:14: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : List[scala.util.Try[Product with Serializable]][0m
+[0m[[0m[31merror[0m] [0m[0m required: List[scala.util.Try[co.com.Dron.Dron]][0m
+[0m[[0m[31merror[0m] [0m[0m      huella :+ huella.last.map(ultimaEntrega => realizarEntrega(ultimaEntrega, item))[0m
+[0m[[0m[31merror[0m] [0m[0m             ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
