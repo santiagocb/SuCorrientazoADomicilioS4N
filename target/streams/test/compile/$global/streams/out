@@ -1,6 +1,16 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:49:7: missing argument list for method test in trait FunSuiteLike[0m
-[0m[[0m[31merror[0m] [0m[0mUnapplied methods are only converted to functions when a function type is expected.[0m
-[0m[[0m[31merror[0m] [0m[0mYou can make this conversion explicit by writing `test _` or `test(_,_)(_)(_)` instead of `test`.[0m
-[0m[[0m[31merror[0m] [0m[0m  test("Haciendo una ruta")[0m
-[0m[[0m[31merror[0m] [0m[0m      ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:39:55: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Success[co.com.Sustantivos.A][0m
+[0m[[0m[31merror[0m] [0m[0m required: co.com.Sustantivos.Instruccion[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(entrega == Sustantivos.Entrega(List(Success(A()), Success(A()), Success(A()))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                      ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:39:69: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Success[co.com.Sustantivos.A][0m
+[0m[[0m[31merror[0m] [0m[0m required: co.com.Sustantivos.Instruccion[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(entrega == Sustantivos.Entrega(List(Success(A()), Success(A()), Success(A()))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:39:83: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Success[co.com.Sustantivos.A][0m
+[0m[[0m[31merror[0m] [0m[0m required: co.com.Sustantivos.Instruccion[0m
+[0m[[0m[31merror[0m] [0m[0m    assert(entrega == Sustantivos.Entrega(List(Success(A()), Success(A()), Success(A()))))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                  ^[0m
+[0m[[0m[31merror[0m] [0m[0mthree errors found[0m

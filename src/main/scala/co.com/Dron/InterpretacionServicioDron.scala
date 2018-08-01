@@ -5,19 +5,19 @@ import co.com.Sustantivos.{Entrega, Posicion, _}
 import scala.util.Try
 
 sealed trait ServicioDronAlgebra {
-  def realizarInstruccion(dron: Dron, instruccion: Instruccion): Try[Dron]
-  def mostrarRastro(dron: Dron, entrega: Entrega): List[Try[Dron]]
+  def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron
+  def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron]
   def realizarEntrega(dron: Dron, entrega: Entrega): Try[Dron]
-  def realizarRuta(dron: Dron, ruta: Ruta): List[Try[Dron]]
+  def realizarRuta(dron: Dron, ruta: Ruta): Reporte
 }
 
 sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
-  private def avanzar(posicionActual: Posicion): Try[Posicion] = {
+  private def avanzar(posicionActual: Posicion): Posicion = {
     posicionActual.orientacion match {
-      case n: N => Posicion.newPosicionTry(Coordenada(posicionActual.coordenada.x, posicionActual.coordenada.y + 1), posicionActual.orientacion)
-      case n: S => Posicion.newPosicionTry(Coordenada(posicionActual.coordenada.x, posicionActual.coordenada.y - 1), posicionActual.orientacion)
-      case n: E => Posicion.newPosicionTry(Coordenada(posicionActual.coordenada.x + 1, posicionActual.coordenada.y), posicionActual.orientacion)
-      case n: O => Posicion.newPosicionTry(Coordenada(posicionActual.coordenada.x - 1, posicionActual.coordenada.y), posicionActual.orientacion)
+      case n: N => Posicion(Coordenada(posicionActual.coordenada.x, posicionActual.coordenada.y + 1), posicionActual.orientacion)
+      case n: S => Posicion(Coordenada(posicionActual.coordenada.x, posicionActual.coordenada.y - 1), posicionActual.orientacion)
+      case n: E => Posicion(Coordenada(posicionActual.coordenada.x + 1, posicionActual.coordenada.y), posicionActual.orientacion)
+      case n: O => Posicion(Coordenada(posicionActual.coordenada.x - 1, posicionActual.coordenada.y), posicionActual.orientacion)
     }
   }
 
@@ -40,47 +40,50 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
     }
   }
 
-  def realizarInstruccion(dron: Dron, instruccion: Instruccion): Try[Dron] = {
+  def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron = {
     instruccion match {
-      case i: A => avanzar(dron.posicionActual).map(nuevaPos => Dron(dron.id, nuevaPos, dron.encargos))
-      case i: D => Try{Dron(dron.id, girarDerecha(dron.posicionActual), dron.encargos)}
-      case i: I => Try{Dron(dron.id, girarIzquierda(dron.posicionActual), dron.encargos)}
+      case i: A => Dron(dron.id, avanzar(dron.posicionActual), dron.encargos)
+      case i: D => Dron(dron.id, girarDerecha(dron.posicionActual), dron.encargos)
+      case i: I => Dron(dron.id, girarIzquierda(dron.posicionActual), dron.encargos)
     }
   }
 
-  def mostrarRastro(dron: Dron, entrega: Entrega): List[Try[Dron]] = {
-    entrega.entrega.foldLeft(List(Try{dron}))((huella, item) => {
-      huella :+ item.flatMap(ins => huella.last.flatMap(lastDron => realizarInstruccion(lastDron, ins)))
+  def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron] = {
+    entrega.entrega.foldLeft(List(dron))((huella, item) => {
+      huella :+ realizarInstruccion(huella.last, item)
     })
   }
+
+  /*def realizarEntrega(dron: Dron, entrega: Entrega): Try[Dron] = {
+    entrega.entrega.foldLeft(List(Try{dron}))((huella, item) => {
+      huella :+ item.flatMap(ins => huella.last.flatMap(lastDron => {
+        if(lastDron.encargos == 0) Posicion.newPosicionTry(Coordenada(0, 0), N())
+          .flatMap(posInicio => realizarInstruccion(Dron(lastDron.id, posInicio, 3), ins))
+        else realizarInstruccion(lastDron, ins)
+      }))
+    }).last.map(dron => Dron(dron.id, dron.posicionActual, dron.encargos - 1))
+  }*/
 
   def realizarEntrega(dron: Dron, entrega: Entrega): Try[Dron] = {
-    if(dron.encargos == 0){
-      volverACasa(dron)
-    } else {
-      entrega.entrega.foldLeft(List(Try{dron}))((huella, item) => {
-        huella :+ item.flatMap(ins => huella.last.flatMap(lastDron => {
-          if(lastDron.encargos == 0) Posicion.newPosicionTry(Coordenada(0, 0), N())
-            .flatMap(posInicio => realizarInstruccion(Dron(lastDron.id, posInicio, 3), ins))
-          else realizarInstruccion(lastDron, ins)
-        }))
-      }).last.map(dron => Dron(dron.id, dron.posicionActual, dron.encargos - 1))
-    }
-
+    val res = entrega.entrega.foldLeft(List(dron))((huella, item) => {
+      huella :+ realizarInstruccion(huella.last, item)
+    }).last
+    Dron.newDronTry(res.id, res.posicionActual, res.encargos - 1)
   }
 
-  def realizarRuta(dron: Dron, ruta: Ruta): List[Try[Dron]] = {
-    ruta.ruta.foldLeft(List(Try{dron}))((reporte, entrega) => {
+
+  def realizarRuta(dron: Dron, ruta: Ruta): Reporte = {
+    Reporte(ruta.ruta.foldLeft(List(Try{dron}))((reporte, entrega) => {
       reporte :+ reporte.last.flatMap(lastEntrega => {
-        if(lastEntrega.encargos == 0) Posicion.newPosicionTry(Coordenada(0, 0), N())
-          .flatMap(posInicio => realizarEntrega(Dron(lastEntrega.id, posInicio, 3), entrega))
+        
+        if(lastEntrega.encargos == 0) realizarEntrega(volverACasa(lastEntrega), entrega)
         else  realizarEntrega(lastEntrega, entrega)
       })
-    })
+    }))
   }
 
-  private def volverACasa(dron: Dron): Try[Dron] = {
-    Posicion.newPosicionTry(Coordenada(0, 0), N()).map(posInicio => Dron(dron.id, posInicio, 3))
+  private def volverACasa(dron: Dron): Dron = {
+    Dron(dron.id, Posicion(Coordenada(0, 0), N()), 3)
   }
 }
 
