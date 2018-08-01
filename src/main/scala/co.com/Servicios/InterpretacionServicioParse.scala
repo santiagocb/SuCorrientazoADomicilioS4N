@@ -18,7 +18,7 @@ sealed trait InterpretacionServicioParse extends ServicioParseAlgebra {
 
   def reporteToString(reporte: Reporte): List[String] = {
     reporte.lista.map(tryDron =>
-      tryDron.fold(e => "Falló el envío ",
+      tryDron.fold(e => "Falló el envío",
         dron => s"(${dron.posicionActual.coordenada.x}, ${dron.posicionActual.coordenada.y}) dirección ${orientacionToString(dron.posicionActual.orientacion)}"
       ))
   }

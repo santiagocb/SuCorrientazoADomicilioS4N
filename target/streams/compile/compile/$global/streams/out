@@ -1,6 +1,11 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Sustantivos/Entrega.scala:9:33: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : List[scala.util.Try[co.com.Sustantivos.Instruccion]][0m
-[0m[[0m[31merror[0m] [0m[0m required: co.com.Sustantivos.Entrega[0m
-[0m[[0m[31merror[0m] [0m[0m    entregaString.toList.flatMap(char => List(Instruccion.newInstruccionTry(char)))[0m
-[0m[[0m[31merror[0m] [0m[0m                                ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Dron/Dron.scala:12:89: ambiguous reference to overloaded definition,[0m
+[0m[[0m[31merror[0m] [0m[0mboth method newDron in object Dron of type (id: Int, posicionActual: co.com.Sustantivos.Posicion, encargos: Int)Either[String,co.com.Dron.Dron][0m
+[0m[[0m[31merror[0m] [0m[0mand  method newDron in object Dron of type (id: Int, posicionActual: co.com.Sustantivos.Posicion, encargos: Int)Either[String,co.com.Dron.Dron][0m
+[0m[[0m[31merror[0m] [0m[0mmatch argument types (Int,co.com.Sustantivos.Posicion,Int) and expected result type Either[String,co.com.Dron.Dron][0m
+[0m[[0m[31merror[0m] [0m[0m  def newDron(id: Int, posicionActual: Posicion, encargos: Int): Either[String, Dron] = newDron(id, posicionActual, encargos)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Dron/Dron.scala:12:7: method newDron is defined twice;[0m
+[0m[[0m[31merror[0m] [0m[0m  the conflicting method newDron was defined at line 8:21[0m
+[0m[[0m[31merror[0m] [0m[0m  def newDron(id: Int, posicionActual: Posicion, encargos: Int): Either[String, Dron] = newDron(id, posicionActual, encargos)[0m
+[0m[[0m[31merror[0m] [0m[0m      ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m

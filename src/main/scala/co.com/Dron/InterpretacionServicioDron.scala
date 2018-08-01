@@ -2,12 +2,10 @@ package co.com.Dron
 
 import co.com.Sustantivos.{Entrega, Posicion, _}
 
-import scala.util.Try
-
 sealed trait ServicioDronAlgebra {
   def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron
   def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron]
-  def realizarEntrega(dron: Dron, entrega: Entrega): Try[Dron]
+  def realizarEntrega(dron: Dron, entrega: Entrega): Either[String, Dron]
   def realizarRuta(dron: Dron, ruta: Ruta): Reporte
 }
 
@@ -54,31 +52,23 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
     })
   }
 
-  /*def realizarEntrega(dron: Dron, entrega: Entrega): Try[Dron] = {
-    entrega.entrega.foldLeft(List(Try{dron}))((huella, item) => {
-      huella :+ item.flatMap(ins => huella.last.flatMap(lastDron => {
-        if(lastDron.encargos == 0) Posicion.newPosicionTry(Coordenada(0, 0), N())
-          .flatMap(posInicio => realizarInstruccion(Dron(lastDron.id, posInicio, 3), ins))
-        else realizarInstruccion(lastDron, ins)
-      }))
-    }).last.map(dron => Dron(dron.id, dron.posicionActual, dron.encargos - 1))
-  }*/
-
-  def realizarEntrega(dron: Dron, entrega: Entrega): Try[Dron] = {
+  def realizarEntrega(dron: Dron, entrega: Entrega): Either[String, Dron] = {
     val res = entrega.entrega.foldLeft(List(dron))((huella, item) => {
       huella :+ realizarInstruccion(huella.last, item)
     }).last
     Dron.newDronTry(res.id, res.posicionActual, res.encargos - 1)
   }
 
-
   def realizarRuta(dron: Dron, ruta: Ruta): Reporte = {
-    Reporte(ruta.ruta.foldLeft(List(Try{dron}))((reporte, entrega) => {
-      reporte :+ reporte.last.flatMap(lastEntrega => {
-        
-        if(lastEntrega.encargos == 0) realizarEntrega(volverACasa(lastEntrega), entrega)
-        else  realizarEntrega(lastEntrega, entrega)
-      })
+    val r: List[Either[String, Dron]] = List(Right(dron))
+    Reporte(ruta.ruta.foldLeft(r)((reporte, entrega) => {
+      reporte :+ reporte.last.fold(
+        str => Left("Esta por fuera de la grilla"),
+        dron => {
+          if(dron.encargos == 0) realizarEntrega(volverACasa(dron), entrega)
+          else realizarEntrega(dron, entrega)
+        }
+      )
     }))
   }
 

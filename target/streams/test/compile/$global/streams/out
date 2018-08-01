@@ -1,16 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:39:55: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Success[co.com.Sustantivos.A][0m
-[0m[[0m[31merror[0m] [0m[0m required: co.com.Sustantivos.Instruccion[0m
-[0m[[0m[31merror[0m] [0m[0m    assert(entrega == Sustantivos.Entrega(List(Success(A()), Success(A()), Success(A()))))[0m
-[0m[[0m[31merror[0m] [0m[0m                                                      ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:39:69: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Success[co.com.Sustantivos.A][0m
-[0m[[0m[31merror[0m] [0m[0m required: co.com.Sustantivos.Instruccion[0m
-[0m[[0m[31merror[0m] [0m[0m    assert(entrega == Sustantivos.Entrega(List(Success(A()), Success(A()), Success(A()))))[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                    ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:39:83: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : scala.util.Success[co.com.Sustantivos.A][0m
-[0m[[0m[31merror[0m] [0m[0m required: co.com.Sustantivos.Instruccion[0m
-[0m[[0m[31merror[0m] [0m[0m    assert(entrega == Sustantivos.Entrega(List(Success(A()), Success(A()), Success(A()))))[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                                  ^[0m
-[0m[[0m[31merror[0m] [0m[0mthree errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:74:40: value realizarRuta is not a member of object co.com.Dron.InterpretacionServicioDron[0m
+[0m[[0m[31merror[0m] [0m[0m    println(InterpretacionServicioDron.realizarRuta(dron, ruta))[0m
+[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

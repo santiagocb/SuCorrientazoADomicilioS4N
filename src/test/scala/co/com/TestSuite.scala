@@ -1,11 +1,9 @@
 package co.com
 
 import co.com.Dron.InterpretacionServicioDron
-import co.com.Servicios.InterpretacionServicioArchivo
+import co.com.Servicios.InterpretacionServicioCorrientazo
 import co.com.Sustantivos._
 import org.scalatest.FunSuite
-
-import scala.util.Success
 
 class TestSuite extends FunSuite{
   test("Creating a coord") {
@@ -50,7 +48,7 @@ class TestSuite extends FunSuite{
     val entrega = Entrega.newEntrega(entregaStr)
     val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 3)
     val entregadoEn = InterpretacionServicioDron.realizarEntrega(dron, entrega)
-    assert(entregadoEn == Success(Dron.Dron(1, Sustantivos.Posicion(Coordenada(-2, 4), N()), 2)))
+    assert(entregadoEn == Right(Dron.Dron(1, Sustantivos.Posicion(Coordenada(-2, 4), N()), 2)))
   }
 
   test("Mandando al dron a hacer una entrega que sale del margen y vuelve") {
@@ -58,39 +56,36 @@ class TestSuite extends FunSuite{
     val entrega = Entrega.newEntrega(entregaStr)
     val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 10), N()), 3)
     val entregadoEn = InterpretacionServicioDron.realizarEntrega(dron, entrega)
-    assert(entregadoEn == Success(Dron.Dron(1,Posicion(Coordenada(0,9),N()),2)))
+    assert(entregadoEn == Right(Dron.Dron(1,Posicion(Coordenada(0,9),N()),2)))
   }
 
   test("Mandando al dron a hacer una ruta (vuelve a casa a los 3 encargos)") {
     val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA")
     val ruta = Ruta.newRuta(archivo)
-    //println(ruta.ruta)
     val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 3)
-    //println(InterpretacionServicioDron.realizarRuta(dron, ruta))
   }
 
   test("Mandando al dron a hacer una ruta fallida") {
-    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAAA")
+    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAAA", "AA")
     val ruta = Ruta.newRuta(archivo)
-    //println(ruta.ruta)
     val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 3)
-    //println(InterpretacionServicioDron.realizarRuta(dron, ruta))
+    println(InterpretacionServicioDron.realizarRuta(dron, ruta))
   }
 
-  test("Leyendo archivo") {
+  /*test("Leyendo archivo") {
     val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA")
     val nombreArchivo = "in.txt"
     val despuesLeer = InterpretacionServicioArchivo.leerArchivo(nombreArchivo)
     assert(despuesLeer == archivo)
-  }
+  }*/
 
-  /*test("Generando Reporte") {
+  test("Generando Reporte") {
     val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 3)
     //InterpretacionServicioArchivo.generarReporte(Reporte(List(Success(dron))))
   }
 
   test("Corrientazo") {
     InterpretacionServicioCorrientazo.corrientizarDron("in.txt")
-  }*/
+  }
 
 }
