@@ -1,8 +1,8 @@
 package co.com
 
-import co.com.Dron.InterpretacionServicioDron
-import co.com.Servicios.{InterpretacionServicioArchivo, InterpretacionServicioCorrientazo}
-import co.com.Sustantivos._
+import co.com.dron.{Dron, ServicioDron}
+import co.com.servicios.{ServicioArchivo, ServicioCorrientazo}
+import co.com.sustantivos._
 import org.scalatest.FunSuite
 
 import scala.concurrent.Await
@@ -65,27 +65,27 @@ class TestSuite extends FunSuite{
   test("Mandando al dron a hacer una ruta (vuelve a casa a los 10 encargos)") {
     val archivo = List("AAAAIA/AD", "DDAI*AD", "DA", "DAAA", "IIA", "AAI", "DDAA", "DAA", "A", "DDA", "A")
     val ruta = Ruta.newRuta(archivo)
-    val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 10)
-    assert(Await.result(InterpretacionServicioDron.realizarRuta(dron, ruta), 10 seconds).lista.last.isRight)
+    val dron = Dron(1, sustantivos.Posicion(Coordenada(0, 0), N()), 10)
+    assert(Await.result(ServicioDron.realizarRutaAsync(dron, ruta), 10 seconds).lista.last.isRight)
   }
 
   test("Mandando al dron a hacer una ruta fallida") {
     val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAA/A", "AA", "A", "AAA*AA", "AAAAA", "D")
     val ruta = Ruta.newRuta(archivo)
-    val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 10)
-    assert(Await.result(InterpretacionServicioDron.realizarRuta(dron, ruta), 10 seconds).lista.last.isLeft)
+    val dron = Dron(1, sustantivos.Posicion(Coordenada(0, 0), N()), 10)
+    assert(Await.result(ServicioDron.realizarRutaAsync(dron, ruta), 10 seconds).lista.last.isLeft)
   }
 
   test("Leyendo archivo") {
     val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAAA", "AA")
     val nombreArchivo = "in1.txt"
-    val despuesLeer = InterpretacionServicioArchivo.leerArchivo(nombreArchivo)
+    val despuesLeer = ServicioArchivo.leerArchivo(nombreArchivo)
     assert(despuesLeer == archivo)
   }
 
   test("Leyendo archivos de un directorio y corrientazo") {
-    val directorio = "src/main/scala/co.com/Files/"
-    println(InterpretacionServicioCorrientazo.corrientizarDrones(directorio))
+    val directorio = "src/main/scala/co.com/files/in/"
+    println(ServicioCorrientazo.corrientizarDrones(directorio))
   }
 
 }

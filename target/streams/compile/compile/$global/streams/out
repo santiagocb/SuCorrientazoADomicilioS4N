@@ -1,5 +1,7 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Servicios/InterpretacionServicioArchivo.scala:24:7: overriding method leerArchivo in trait ServicioArchivoAlgebra of type (rutaArchivo: String)Option[List[String]];[0m
-[0m[[0m[31merror[0m] [0m[0m method leerArchivo has incompatible type[0m
-[0m[[0m[31merror[0m] [0m[0m  def leerArchivo(nombreArchivo: String): List[String] = {[0m
-[0m[[0m[31merror[0m] [0m[0m      ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Servicios/ServicioCorrientazo.scala:3:8: object InterpretacionServicioDron is not a member of package co.com.Dron[0m
+[0m[[0m[31merror[0m] [0m[0mimport co.com.Dron.{Dron, InterpretacionServicioDron}[0m
+[0m[[0m[31merror[0m] [0m[0m       ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Servicios/ServicioCorrientazo.scala:17:23: not found: value InterpretacionServicioDron[0m
+[0m[[0m[31merror[0m] [0m[0m        .map(tupla => InterpretacionServicioDron[0m
+[0m[[0m[31merror[0m] [0m[0m                      ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
