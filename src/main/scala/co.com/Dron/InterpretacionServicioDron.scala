@@ -1,12 +1,16 @@
 package co.com.Dron
 
+import java.util.concurrent.Executors
+
 import co.com.Sustantivos.{Entrega, Posicion, _}
+
+import scala.concurrent.{ExecutionContext, Future}
 
 sealed trait ServicioDronAlgebra {
   def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron
   def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron]
   def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron]
-  def realizarRuta(dron: Dron, ruta: Ruta): Reporte
+  def realizarRuta(dron: Dron, ruta: Ruta): Future[Reporte]
 }
 
 sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
@@ -59,9 +63,10 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
     Dron.newDronTry(res.id, res.posicionActual, res.encargos - 1)
   }
 
-  def realizarRuta(dron: Dron, ruta: Ruta): Reporte = {
+  def realizarRuta(dron: Dron, ruta: Ruta): Future[Reporte] = {
+    implicit val context = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(5))
     val r: List[Either[Dron, Dron]] = List(Right(dron))
-    Reporte(ruta.ruta.foldLeft(r)((reporte, entrega) => {
+    Future(Reporte(ruta.ruta.foldLeft(r)((reporte, entrega) => {
       reporte :+ reporte.last.fold(
         dron => {
           if(dron.encargos == 0)  realizarEntrega(volverACasa(dron), entrega)
@@ -72,7 +77,7 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
           else realizarEntrega(dron, entrega)
         }
       )
-    }).drop(1))
+    }).drop(1)))
   }
 
   private def volverACasa(dron: Dron): Dron = {

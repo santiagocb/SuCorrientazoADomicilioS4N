@@ -1,11 +1,2 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Dron/InterpretacionServicioDron.scala:59:20: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : Either[co.com.Dron.Dron,co.com.Dron.Dron][0m
-[0m[[0m[31merror[0m] [0m[0m required: Either[String,co.com.Dron.Dron][0m
-[0m[[0m[31merror[0m] [0m[0m    Dron.newDronTry(res.id, res.posicionActual, res.encargos - 1)[0m
-[0m[[0m[31merror[0m] [0m[0m                   ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/Dron/InterpretacionServicioDron.scala:65:15: type mismatch;[0m
-[0m[[0m[31merror[0m] [0m[0m found   : List[scala.util.Either[java.io.Serializable,co.com.Dron.Dron]][0m
-[0m[[0m[31merror[0m] [0m[0m required: List[Either[co.com.Dron.Dron,co.com.Dron.Dron]][0m
-[0m[[0m[31merror[0m] [0m[0m      reporte :+ reporte.last.fold([0m
-[0m[[0m[31merror[0m] [0m[0m              ^[0m
-[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere was one feature warning; re-run with -feature for details[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
