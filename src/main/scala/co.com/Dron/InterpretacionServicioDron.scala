@@ -7,13 +7,12 @@ import co.com.Sustantivos.{Entrega, Posicion, _}
 import scala.concurrent.{ExecutionContext, Future}
 
 sealed trait ServicioDronAlgebra {
-  def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron
-  def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron]
-  def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron]
   def realizarRuta(dron: Dron, ruta: Ruta): Future[Reporte]
 }
 
 sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
+  implicit val context = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
+
   private def avanzar(posicionActual: Posicion): Posicion = {
     posicionActual.orientacion match {
       case n: N => Posicion(Coordenada(posicionActual.coordenada.x, posicionActual.coordenada.y + 1), posicionActual.orientacion)
@@ -42,7 +41,7 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
     }
   }
 
-  def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron = {
+  private def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron = {
     instruccion match {
       case i: A => Dron(dron.id, avanzar(dron.posicionActual), dron.encargos)
       case i: D => Dron(dron.id, girarDerecha(dron.posicionActual), dron.encargos)
@@ -50,13 +49,13 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
     }
   }
 
-  def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron] = {
+  private def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron] = {
     entrega.entrega.foldLeft(List(dron))((huella, item) => {
       huella :+ realizarInstruccion(huella.last, item)
     })
   }
 
-  def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron] = {
+  private def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron] = {
     val res = entrega.entrega.foldLeft(List(dron))((huella, item) => {
       huella :+ realizarInstruccion(huella.last, item)
     }).last
@@ -64,7 +63,6 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
   }
 
   def realizarRuta(dron: Dron, ruta: Ruta): Future[Reporte] = {
-    implicit val context = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(5))
     val r: List[Either[Dron, Dron]] = List(Right(dron))
     Future(Reporte(ruta.ruta.foldLeft(r)((reporte, entrega) => {
       reporte :+ reporte.last.fold(
@@ -81,7 +79,7 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
   }
 
   private def volverACasa(dron: Dron): Dron = {
-    Dron(dron.id, Posicion(Coordenada(0, 0), N()), 3)
+    Dron(dron.id, Posicion(Coordenada(0, 0), N()), 10)
   }
 }
 

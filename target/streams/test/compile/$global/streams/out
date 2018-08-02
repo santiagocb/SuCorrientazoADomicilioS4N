@@ -1,4 +1,2 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/test/scala/co/com/TestSuite.scala:74:40: value realizarRuta is not a member of object co.com.Dron.InterpretacionServicioDron[0m
-[0m[[0m[31merror[0m] [0m[0m    println(InterpretacionServicioDron.realizarRuta(dron, ruta))[0m
-[0m[[0m[31merror[0m] [0m[0m                                       ^[0m
-[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[33mwarn[0m] [0m[0mthere were two feature warnings; re-run with -feature for details[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m

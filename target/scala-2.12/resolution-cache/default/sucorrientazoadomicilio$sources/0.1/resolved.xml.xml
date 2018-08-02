@@ -4,7 +4,7 @@
 		module="sucorrientazoadomicilio$sources"
 		revision="0.1"
 		status="integration"
-		publication="20180730082655"
+		publication="20180802083125"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>

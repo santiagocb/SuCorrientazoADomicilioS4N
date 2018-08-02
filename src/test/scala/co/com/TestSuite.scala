@@ -5,6 +5,9 @@ import co.com.Servicios.{InterpretacionServicioArchivo, InterpretacionServicioCo
 import co.com.Sustantivos._
 import org.scalatest.FunSuite
 
+import scala.concurrent.Await
+import scala.concurrent.duration._
+
 class TestSuite extends FunSuite{
   test("Creating a coord") {
     assert(Coordenada(5, 5) == Coordenada(5, 5))
@@ -21,7 +24,7 @@ class TestSuite extends FunSuite{
     val pos = Posicion(Coordenada(11, 3), N())
   }
 
-  test("Moviendo el dron de posición con una instrucción") {
+  /*test("Moviendo el dron de posición con una instrucción") {
     val char = 'A'
     val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 10), N()), 3)
 
@@ -57,19 +60,20 @@ class TestSuite extends FunSuite{
     val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 10), N()), 3)
     val entregadoEn = InterpretacionServicioDron.realizarEntrega(dron, entrega)
     assert(entregadoEn == Right(Dron.Dron(1,Posicion(Coordenada(0,9),N()),2)))
-  }
+  }*/
 
-  test("Mandando al dron a hacer una ruta (vuelve a casa a los 3 encargos)") {
-    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA")
+  test("Mandando al dron a hacer una ruta (vuelve a casa a los 10 encargos)") {
+    val archivo = List("AAAAIA/AD", "DDAI*AD", "DA", "DAAA", "IIA", "AAI", "DDAA", "DAA", "A", "DDA", "A")
     val ruta = Ruta.newRuta(archivo)
-    val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 3)
+    val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 10)
+    assert(Await.result(InterpretacionServicioDron.realizarRuta(dron, ruta), 10 seconds).lista.last.isRight)
   }
 
   test("Mandando al dron a hacer una ruta fallida") {
-    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAAA", "AA", "A", "AAAAA", "AAAAA","D")
+    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAA/A", "AA", "A", "AAA*AA", "AAAAA", "D")
     val ruta = Ruta.newRuta(archivo)
-    val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 3)
-    println(InterpretacionServicioDron.realizarRuta(dron, ruta))
+    val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 10)
+    assert(Await.result(InterpretacionServicioDron.realizarRuta(dron, ruta), 10 seconds).lista.last.isLeft)
   }
 
   test("Leyendo archivo") {
@@ -79,8 +83,9 @@ class TestSuite extends FunSuite{
     assert(despuesLeer == archivo)
   }
 
-  /*test("Corrientazo") {
-    InterpretacionServicioCorrientazo.corrientizarDron("in1.txt")
-  }*/
+  test("Leyendo archivos de un directorio y corrientazo") {
+    val directorio = "src/main/scala/co.com/Files/"
+    println(InterpretacionServicioCorrientazo.corrientizarDrones(directorio))
+  }
 
 }

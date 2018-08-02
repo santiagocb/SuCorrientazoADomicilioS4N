@@ -7,15 +7,18 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 sealed trait ServicioCorrientazoAlgebra {
-  def corrientizarDron(archivoIn: List[String]): IndexedSeq[Future[Boolean]]
+  def corrientizarDrones(dir: String):  Option[IndexedSeq[Future[Boolean]]]
 }
 
 sealed trait InterpretacionServicioCorrientazo extends ServicioCorrientazoAlgebra {
-  def corrientizarDron(archivosIn: List[String]): IndexedSeq[Future[Boolean]] = {
-      Range(1, archivosIn.size + 1).zip(archivosIn)
+  def corrientizarDrones(dir: String): Option[IndexedSeq[Future[Boolean]]] = {
+    InterpretacionServicioArchivo.leerDirectorio(dir).map(dir => {
+      Range(1, dir.size + 1).zip(dir)
         .map(tupla => InterpretacionServicioDron
-        .realizarRuta(Dron(tupla._1, Posicion(Coordenada(0, 0), N()), 3), Ruta.newRuta(InterpretacionServicioArchivo.leerArchivo(tupla._2)))
-        .map(reporte => InterpretacionServicioArchivo.generarReporte(InterpretacionServicioParse.reporteToString(reporte), tupla._1)))
+          .realizarRuta(Dron(tupla._1, Posicion(Coordenada(0, 0), N()), 10), Ruta.newRuta(InterpretacionServicioArchivo.leerArchivo(tupla._2)))
+          .map(reporte => InterpretacionServicioArchivo.generarReporte(InterpretacionServicioParse.reporteToString(reporte), tupla._1)))
+    })
+
   }
 }
 

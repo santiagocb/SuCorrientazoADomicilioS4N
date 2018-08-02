@@ -4,7 +4,7 @@
 		module="sucorrientazoadomicilio-build"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20180730081432"
+		publication="20180802083115"
 		e:sbtVersion="1.0" e:scalaVersion="2.12"
 	>
 		<description>

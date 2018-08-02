@@ -2,11 +2,7 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- Creating a coord[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Creating a instrucción[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Creación posición[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Moviendo el dron de posición con una instrucción[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Creando una entrega[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Mostrando rastro[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una entrega[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una entrega que sale del margen y vuelve[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una ruta (vuelve a casa a los 3 encargos)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una ruta (vuelve a casa a los 10 encargos)[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una ruta fallida[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Leyendo archivo[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Leyendo archivos de un directorio y corrientazo[0m[0m
