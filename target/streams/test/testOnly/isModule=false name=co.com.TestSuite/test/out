@@ -9,5 +9,5 @@
 [0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una entrega que sale del margen y vuelve[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una ruta (vuelve a casa a los 3 encargos)[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una ruta fallida[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Generando Reporte[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Corrientazo[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m- Leyendo archivo *** FAILED ***[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAAA", "AA", "A", "AAAAA", "AAAAA", "D", "AAAAAAAAAAA", "A", "A", "AAD", "DAAAA") did not equal List("AAAAIAAD", "DDAIAD", "DA", "DAAA") (TestSuite.scala:79)[0m[0m

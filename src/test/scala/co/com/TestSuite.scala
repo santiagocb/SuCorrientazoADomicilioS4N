@@ -79,8 +79,8 @@ class TestSuite extends FunSuite{
     assert(despuesLeer == archivo)
   }
 
-  test("Corrientazo") {
+  /*test("Corrientazo") {
     InterpretacionServicioCorrientazo.corrientizarDron("in.txt")
-  }
+  }*/
 
 }
