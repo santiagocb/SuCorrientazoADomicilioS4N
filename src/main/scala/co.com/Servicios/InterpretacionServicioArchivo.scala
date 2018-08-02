@@ -17,6 +17,7 @@ sealed trait InterpretacionServicioArchivo extends ServicioArchivoAlgebra {
 
   def generarReporte(ruta: List[String]): Unit = {
     val writer = new PrintWriter(new File("src/main/scala/co.com/Files/out.txt"))
+    //writer.write("== Reporte de entregas ==\n")
     ruta.foreach(str => writer.write(s"${str}\n"))
     writer.close()
   }

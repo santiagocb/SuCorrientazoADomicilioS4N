@@ -5,7 +5,7 @@ import co.com.Sustantivos.{Entrega, Posicion, _}
 sealed trait ServicioDronAlgebra {
   def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron
   def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron]
-  def realizarEntrega(dron: Dron, entrega: Entrega): Either[String, Dron]
+  def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron]
   def realizarRuta(dron: Dron, ruta: Ruta): Reporte
 }
 
@@ -52,7 +52,7 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
     })
   }
 
-  def realizarEntrega(dron: Dron, entrega: Entrega): Either[String, Dron] = {
+  def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron] = {
     val res = entrega.entrega.foldLeft(List(dron))((huella, item) => {
       huella :+ realizarInstruccion(huella.last, item)
     }).last
@@ -60,16 +60,19 @@ sealed trait InterpretacionServicioDron extends ServicioDronAlgebra {
   }
 
   def realizarRuta(dron: Dron, ruta: Ruta): Reporte = {
-    val r: List[Either[String, Dron]] = List(Right(dron))
+    val r: List[Either[Dron, Dron]] = List(Right(dron))
     Reporte(ruta.ruta.foldLeft(r)((reporte, entrega) => {
       reporte :+ reporte.last.fold(
-        str => Left("Esta por fuera de la grilla"),
+        dron => {
+          if(dron.encargos == 0)  realizarEntrega(volverACasa(dron), entrega)
+          else  Dron.newDronTry(dron.id, dron.posicionActual, dron.encargos - 1)
+        },
         dron => {
           if(dron.encargos == 0) realizarEntrega(volverACasa(dron), entrega)
           else realizarEntrega(dron, entrega)
         }
       )
-    }))
+    }).drop(1))
   }
 
   private def volverACasa(dron: Dron): Dron = {

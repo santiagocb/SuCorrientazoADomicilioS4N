@@ -66,7 +66,7 @@ class TestSuite extends FunSuite{
   }
 
   test("Mandando al dron a hacer una ruta fallida") {
-    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAAA", "AA")
+    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAAA", "AA", "A", "AAAAA", "AAAAA","D")
     val ruta = Ruta.newRuta(archivo)
     val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 3)
     println(InterpretacionServicioDron.realizarRuta(dron, ruta))

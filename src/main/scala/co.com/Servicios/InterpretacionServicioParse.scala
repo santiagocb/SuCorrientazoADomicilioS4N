@@ -10,7 +10,7 @@ sealed trait InterpretacionServicioParse extends ServicioParseAlgebra {
   private def orientacionToString(orientacion: Orientacion): String = {
     orientacion match {
       case n: N => "Norte"
-      case n: S => "Sure"
+      case n: S => "Sur"
       case n: O => "Oriente"
       case n: E => "Occidente"
     }
