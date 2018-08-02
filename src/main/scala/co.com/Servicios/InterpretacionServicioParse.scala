@@ -11,8 +11,8 @@ sealed trait InterpretacionServicioParse extends ServicioParseAlgebra {
     orientacion match {
       case n: N => "Norte"
       case n: S => "Sur"
-      case n: O => "Oriente"
-      case n: E => "Occidente"
+      case n: O => "Occidente"
+      case n: E => "Oriente"
     }
   }
 

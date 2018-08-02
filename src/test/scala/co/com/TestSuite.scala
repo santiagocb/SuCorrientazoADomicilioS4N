@@ -73,14 +73,14 @@ class TestSuite extends FunSuite{
   }
 
   test("Leyendo archivo") {
-    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA")
-    val nombreArchivo = "in.txt"
+    val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA", "AAAAAAAA", "AA")
+    val nombreArchivo = "in1.txt"
     val despuesLeer = InterpretacionServicioArchivo.leerArchivo(nombreArchivo)
     assert(despuesLeer == archivo)
   }
 
-  test("Corrientazo") {
-    InterpretacionServicioCorrientazo.corrientizarDron("in.txt")
-  }
+  /*test("Corrientazo") {
+    InterpretacionServicioCorrientazo.corrientizarDron("in1.txt")
+  }*/
 
 }
