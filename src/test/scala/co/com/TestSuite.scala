@@ -1,7 +1,7 @@
 package co.com
 
 import co.com.Dron.InterpretacionServicioDron
-import co.com.Servicios.InterpretacionServicioCorrientazo
+import co.com.Servicios.{InterpretacionServicioArchivo, InterpretacionServicioCorrientazo}
 import co.com.Sustantivos._
 import org.scalatest.FunSuite
 
@@ -72,16 +72,11 @@ class TestSuite extends FunSuite{
     println(InterpretacionServicioDron.realizarRuta(dron, ruta))
   }
 
-  /*test("Leyendo archivo") {
+  test("Leyendo archivo") {
     val archivo = List("AAAAIAAD", "DDAIAD", "DA", "DAAA")
     val nombreArchivo = "in.txt"
     val despuesLeer = InterpretacionServicioArchivo.leerArchivo(nombreArchivo)
     assert(despuesLeer == archivo)
-  }*/
-
-  test("Generando Reporte") {
-    val dron = Dron.Dron(1, Sustantivos.Posicion(Coordenada(0, 0), N()), 3)
-    //InterpretacionServicioArchivo.generarReporte(Reporte(List(Success(dron))))
   }
 
   test("Corrientazo") {
