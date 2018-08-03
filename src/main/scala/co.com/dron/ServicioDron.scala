@@ -7,13 +7,20 @@ import co.com.sustantivos.{Entrega, Posicion, _}
 import scala.concurrent.{ExecutionContext, Future}
 
 sealed trait ServicioDronAlgebra {
+  protected def avanzar(posicionActual: Posicion): Posicion
+  protected def girarDerecha(posicionActual: Posicion): Posicion
+  protected def girarIzquierda(posicionActual: Posicion): Posicion
+  protected def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron]
+  protected def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron]
+  protected def volverACasa(dron: Dron): Dron
+  protected def realizarRutaSync(dron: Dron, ruta: Ruta): Reporte
   def realizarRutaAsync(dron: Dron, ruta: Ruta): Future[Reporte]
 }
 
 sealed trait ServicioDron extends ServicioDronAlgebra {
   implicit val context = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(20))
 
-  private def avanzar(posicionActual: Posicion): Posicion = {
+  protected def avanzar(posicionActual: Posicion): Posicion = {
     posicionActual.orientacion match {
       case n: N => Posicion(Coordenada(posicionActual.coordenada.x, posicionActual.coordenada.y + 1), posicionActual.orientacion)
       case n: S => Posicion(Coordenada(posicionActual.coordenada.x, posicionActual.coordenada.y - 1), posicionActual.orientacion)
@@ -22,17 +29,16 @@ sealed trait ServicioDron extends ServicioDronAlgebra {
     }
   }
 
-  private def girarDerecha(posicionActual: Posicion): Posicion = {
+  protected def girarDerecha(posicionActual: Posicion): Posicion = {
     posicionActual.orientacion match {
       case n: N => Posicion(posicionActual.coordenada, E())
       case n: S => Posicion(posicionActual.coordenada, O())
       case n: E => Posicion(posicionActual.coordenada, S())
       case n: O => Posicion(posicionActual.coordenada, N())
-
     }
   }
 
-  private def girarIzquierda(posicionActual: Posicion): Posicion = {
+  protected def girarIzquierda(posicionActual: Posicion): Posicion = {
     posicionActual.orientacion match {
       case n: N => Posicion(posicionActual.coordenada, O())
       case n: S => Posicion(posicionActual.coordenada, E())
@@ -41,7 +47,7 @@ sealed trait ServicioDron extends ServicioDronAlgebra {
     }
   }
 
-  private def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron = {
+  protected def realizarInstruccion(dron: Dron, instruccion: Instruccion): Dron = {
     instruccion match {
       case i: A => Dron(dron.id, avanzar(dron.posicionActual), dron.encargos)
       case i: D => Dron(dron.id, girarDerecha(dron.posicionActual), dron.encargos)
@@ -49,13 +55,13 @@ sealed trait ServicioDron extends ServicioDronAlgebra {
     }
   }
 
-  private def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron] = {
+  protected def mostrarRastro(dron: Dron, entrega: Entrega): List[Dron] = {
     entrega.entrega.foldLeft(List(dron))((huella, item) => {
       huella :+ realizarInstruccion(huella.last, item)
     })
   }
 
-  private def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron] = {
+  protected def realizarEntrega(dron: Dron, entrega: Entrega): Either[Dron, Dron] = {
     val res = entrega.entrega.foldLeft(List(dron))((huella, item) => {
       huella :+ realizarInstruccion(huella.last, item)
     }).last
@@ -64,7 +70,7 @@ sealed trait ServicioDron extends ServicioDronAlgebra {
 
   def realizarRutaAsync(dron: Dron, ruta: Ruta): Future[Reporte] = Future(realizarRutaSync(dron, ruta))
 
-  private def realizarRutaSync(dron: Dron, ruta: Ruta): Reporte = {
+  protected def realizarRutaSync(dron: Dron, ruta: Ruta): Reporte = {
     Reporte(ruta.listaEntrega.foldLeft(List[Either[Dron, Dron]](Right(dron)))
       ((reporte, entrega) => {
         reporte :+ reporte.last.fold(
@@ -80,9 +86,7 @@ sealed trait ServicioDron extends ServicioDronAlgebra {
       }).drop(1))
   }
 
-  private def volverACasa(dron: Dron): Dron = {
-    Dron(dron.id, Posicion(Coordenada(0, 0), N()), 10)
-  }
+  protected def volverACasa(dron: Dron): Dron = Dron(dron.id, Posicion(Coordenada(0, 0), N()), 10)
 }
 
 object ServicioDron extends ServicioDron

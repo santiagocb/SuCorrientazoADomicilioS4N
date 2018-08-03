@@ -3,11 +3,12 @@ package co.com.servicios
 import java.io.{File, PrintWriter}
 
 import scala.io.Source
+import scala.util.Try
 
 
 sealed trait ServicioArchivoAlgebra {
   def leerDirectorio(nombreDir: String): Option[List[String]]
-  def leerArchivo(rutaArchivo: String): List[String]
+  def leerArchivo(rutaArchivo: String): Option[List[String]]
   def generarReporte(ruta: List[String], id: Int): Boolean
 }
 
@@ -22,8 +23,13 @@ sealed trait ServicioArchivo extends ServicioArchivoAlgebra {
     else None
   }
 
-  def leerArchivo(nombreArchivo: String): List[String] = {
-    Source.fromFile(s"src/main/scala/co.com/files/in/${nombreArchivo}").getLines.toList
+  def leerArchivo(nombreArchivo: String): Option[List[String]] = {
+    Try(Source.fromFile(s"src/main/scala/co.com/files/in/${nombreArchivo}")).fold(
+      thr => None ,
+      buffer => {
+        if(buffer.getLines.toList.isEmpty) None
+        else Some(buffer.getLines.toList)
+      })
   }
 
   def generarReporte(ruta: List[String], id: Int): Boolean = {

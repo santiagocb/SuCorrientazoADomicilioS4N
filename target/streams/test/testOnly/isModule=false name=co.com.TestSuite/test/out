@@ -1,8 +1,7 @@
 [0m[[0m[0minfo[0m] [0m[0m[32mTestSuite:[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Creating a coord[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Creating a instrucción[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Creación posición[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una ruta (vuelve a casa a los 10 encargos)[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Mandando al dron a hacer una ruta fallida[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Leyendo archivo[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[32m- Leyendo archivos de un directorio y corrientazo[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- El dron puede hacer una ruta normal (día de trabajo) (vuelve a la empresa después de 10 encargos)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- El dron puede hacer una ruta afuera del barrio pero se marca como fallida (Left)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Si el in.txt es un File vacío, no considerarlo -> es como si no existiera (None)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- El directorio del que se lee no existe (donde están los in)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Cuando el dron hace una entrega por fuera del barrio, las demás entregas se toman como fallidashasta terminar los 10 encargos que se le asignaron, y vuelve a casa para hacer otros 10 encargos[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Leyendo archivos de un directorio y haciendo un corrientazo (un día con todos los drones) ycreando reportes escritos (out.txt)[0m[0m
