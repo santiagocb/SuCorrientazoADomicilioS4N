@@ -1,7 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/servicios/ServicioCorrientazo.scala:21:9: Missing closing brace `}' assumed here[0m
-[0m[[0m[31merror[0m] [0m[0m        })[0m
-[0m[[0m[31merror[0m] [0m[0m        ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/s4n/Documents/SuCorrientazoADomicilio/src/main/scala/co.com/servicios/ServicioCorrientazo.scala:23:4: ';' expected but ')' found.[0m
-[0m[[0m[31merror[0m] [0m[0m  })[0m
-[0m[[0m[31merror[0m] [0m[0m   ^[0m
-[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
